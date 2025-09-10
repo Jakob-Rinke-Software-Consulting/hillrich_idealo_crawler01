@@ -1,0 +1,14 @@
+check_amazon=1 
+check_best=1
+check_price_ratio=1 
+check_min_price=1
+check_max_price=1
+check_blacklist=1
+check_word_blacklist=1
+get_min_rating_val=1
+check_weight=1
+check_buybox=1
+check_selling_amount=1
+check_profitablity=1
+check_profitablity_30=1
+check_profitablity_90=1

@@ -1,0 +1,5 @@
+
+*.log
+settings/keepa_key.txt
+settings/client_secret.json
+settings/discord_api_creds.json
