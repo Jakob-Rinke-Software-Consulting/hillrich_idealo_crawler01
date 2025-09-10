@@ -1,14 +1,20 @@
 import requests
 import json
 
-with open("settings/keepa_key.txt", "r") as f:
-    KEEP_A_KEY = f.read().strip()
+try:
+    with open("settings/keepa_key.txt", "r") as f:
+        KEEP_A_KEY = f.read().strip()
+except FileNotFoundError:
+    KEEP_A_KEY = ""
+    print("No Keepa key found.")
 
 API_BASE = "https://api.keepa.com"
 API_PRODUCT = API_BASE + "/product"
 
 
 def get_product_data(asin: str, domain: int = 3):
+    if KEEP_A_KEY == "":
+        return -1
     t = requests.get(f"{API_PRODUCT}?key={KEEP_A_KEY}&domain={domain}&asin={asin}&history=1&stats=1")
     if t.status_code == 200:
         products = t.json().get("products", [])
