@@ -19,6 +19,9 @@ JUMPY_BY = 15
 
 def get_chunk_from_url(self, url):
     try:
+        if self.page_index > self.max_page:
+            self.end()
+            return
         res = proxquest.get(
             url,
             max_of_retries=5, 
@@ -64,12 +67,13 @@ def get_chunk_from_url(self, url):
 MAX_CAT_PAGE = 10
 class IdealoCategoryCrawler ():
 
-    def __init__(self, categoryID=-1):
+    def __init__(self, categoryID=-1, max_page=5):
         if categoryID != -1:
             self.categoryID = categoryID
         self.page_index = 0
         self.itemcache = []
         self.item_keys = set()
+        self.max_page = max_page
 
 
     def __iter__(self):
@@ -104,6 +108,7 @@ class MainCategoryCrawler(IdealoCategoryCrawler):
         self.itemcache = []
         self.item_keys = set()
         self.categoryID = "MainCategory"
+        max_page = 60
 
     def get_next_chunk(self):
         get_chunk_from_url(self, IDEALO_MAIN_CATEGORY_URL.format(self.page_index*JUMPY_BY))
