@@ -83,7 +83,7 @@ def onItem(item:IdealoShopItem, channel="all"):
             avg90 = item.get_amazon_item().get_avgr90()
             item_str += f"{'Amazon':<10} | {item.amazon_offer.price:>10.2f}€ | {avg30:>10.2f}€ | {avg90:>10.2f}€\n"
 
-            item_str += f"{'BSR/Drops':<10} | {amz_it.get_bsr():>10.2f}€ | {amz_it.get_drop_bsr30():>10.2f}€ | {amz_it.get_drop_bsr90():>10.2f}€\n"
+            item_str += f"{'BSR/Drops':<10} | {amz_it.get_bsr():>10.2f} | {amz_it.get_drop_bsr30():>10.2f} | {amz_it.get_drop_bsr90():>10.2f}\n"
 
             # Leerzeile nach Tabelle
             item_str += "\n"
