@@ -108,7 +108,7 @@ class MainCategoryCrawler(IdealoCategoryCrawler):
         self.itemcache = []
         self.item_keys = set()
         self.categoryID = "MainCategory"
-        max_page = 60
+        self.max_page = 60
 
     def get_next_chunk(self):
         get_chunk_from_url(self, IDEALO_MAIN_CATEGORY_URL.format(self.page_index*JUMPY_BY))
