@@ -12,6 +12,7 @@ IDEALO_SEARCH_URL = "https://www.idealo.de/preisvergleich/ProductCategory/{0}I16
 IDEALO_SEARCH_URL = "https://www.idealo.de/preisvergleich/MainSearchProductCategory/100I16-{1}.html?q={0}"
 JUMPY_BY = 15
 MAX_CAT_PAGE = 20
+FAILED_REQUESTS = 0
 
 def get_chunk_from_url(self, url):
     try:
@@ -28,6 +29,9 @@ def get_chunk_from_url(self, url):
                 enable_agent=True,
             )
         except Exception as e:
+            FAILED_REQUESTS += 1
+            if FAILED_REQUESTS  % 100 == 0:
+                print("Failed requests: ", FAILED_REQUESTS)
             return
         # if the end url has been redirected to the page without -page_index we assume we reached the end
         if not "-" in res.url and self.page_index > 0:

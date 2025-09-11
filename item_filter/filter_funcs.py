@@ -16,7 +16,7 @@ MIN_AMAZON_RATIO = 1.15
 def check_price_ratio(item: IdealoShopItem):
     return item.amazon_offer.price / item.best_offer.price >= MIN_AMAZON_RATIO
 
-MIN_PRICE = 20
+MIN_PRICE = 10
 def check_min_price(item: IdealoShopItem):
     return item.best_offer.price > MIN_PRICE
 
@@ -42,7 +42,7 @@ def check_shop_blacklist(item: IdealoShopItem):
             return False
     return True
 
-MIN_AMAZON_WIN_RATIO = 0.1
+MIN_AMAZON_WIN_RATIO = 0.07
 def check_profitablity_90(item: IdealoShopItem):
     marge = get_marge_90(item)
     return marge / item.get_amazon_item().get_avgr90() >= MIN_AMAZON_WIN_RATIO
@@ -88,8 +88,8 @@ def get_marge(item: IdealoShopItem):
 
 
 MIN_RATING = 10
-MIN_RATING_IF_NO_BSR = 30
-MIN_BSR = 50000
+MIN_RATING_IF_NO_BSR = 10
+MIN_BSR = 100_000
 def check_selling_amount(item: IdealoShopItem):
     amazon_product = item.get_amazon_item()
     if amazon_product.get_bsr() == -1:
