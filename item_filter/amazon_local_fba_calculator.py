@@ -53,7 +53,51 @@ REFERRAL_RULES = {
         ],
         "min_fee": 0.30
     },
-    "default": {"rate": 0.15, "min_fee": 0.30}
+    # -------------------------
+    # Zusätzliche Kategorien
+    # -------------------------
+    "gl_sports": {"rate": 0.15, "min_fee": 0.30},
+    "gl_outdoors": {"rate": 0.15, "min_fee": 0.30},
+    "gl_toys": {"rate": 0.15, "min_fee": 0.30},
+    "gl_pet_supplies": {"rate": 0.15, "min_fee": 0.30},
+    "gl_jewelry": {
+        "price_thresholds": [
+            {"up_to": 250.00, "rate": 0.20},
+            {"over": 250.00, "rate": 0.05}
+        ],
+        "min_fee": 0.30
+    },
+    "gl_watches": {
+        "price_thresholds": [
+            {"up_to": 250.00, "rate": 0.15},
+            {"over": 250.00, "rate": 0.05}
+        ],
+        "min_fee": 0.30
+    },
+    "gl_music": {"rate": 0.15, "min_fee": 0.30},
+    "gl_video_games": {"rate": 0.15, "min_fee": 0.30},
+    "gl_dvd": {"rate": 0.15, "min_fee": 0.30},
+    "gl_handmade": {"rate": 0.12, "min_fee": 0.30},
+    "gl_office_products": {"rate": 0.15, "min_fee": 0.30},
+    "gl_software": {"rate": 0.15, "min_fee": 0.30},
+    "gl_instruments": {"rate": 0.15, "min_fee": 0.30},
+    "gl_garden": {"rate": 0.15, "min_fee": 0.30},
+    "gl_luggage": {"rate": 0.15, "min_fee": 0.30},
+    "gl_shoes": {"rate": 0.15, "min_fee": 0.30},
+    "gl_personal_care_appliances": {"rate": 0.15, "min_fee": 0.30},
+    "gl_large_appliances": {"rate": 0.07, "min_fee": 0.30},
+    "gl_small_appliances": {"rate": 0.15, "min_fee": 0.30},
+    "gl_industrial": {"rate": 0.12, "min_fee": 0.30},
+    "gl_stationery": {"rate": 0.15, "min_fee": 0.30},
+    "gl_smartphones": {"rate": 0.07, "min_fee": 0.30},
+    "gl_tablets": {"rate": 0.07, "min_fee": 0.30},
+    "gl_headphones": {"rate": 0.07, "min_fee": 0.30},
+    "gl_video_dvd": {"rate": 0.15, "min_fee": 0.30},
+    "gl_pc_components": {"rate": 0.07, "min_fee": 0.30},
+    "gl_camera": {"rate": 0.07, "min_fee": 0.30},
+    "gl_software_download": {"rate": 0.15, "min_fee": 0.30},
+    # Fallback
+    "default": {"rate": 0.07, "min_fee": 0.30}
 }
 
 # -------------------------
@@ -74,36 +118,92 @@ FBA_FEES = [
     {"max_weight": 14000, "fee": 5.30}
 ]
 
-# Weight per 10€ of price for rough estimation if no data available
+# Weight per 10€ of price for rough estimation if no data available (increased values)
 WEIGHT_ESTIMATES_BY_CAT_GL = {
-    "gl_electronics": 200,
-    "gl_computers": 200,
-    "gl_books": 120,
-    "gl_clothing": 100,
-    "gl_home_kitchen": 180,
-    "gl_health_beauty": 70,
-    "gl_baby_products": 120,
-    "gl_furniture": 350,
-    "gl_tools": 250,
-    "gl_grocery": 100,
-    "gl_beverages": 350,
-    "gl_automotive": 250
+    "gl_electronics": 350,
+    "gl_computers": 350,
+    "gl_books": 200,
+    "gl_clothing": 180,
+    "gl_home_kitchen": 300,
+    "gl_health_beauty": 120,
+    "gl_baby_products": 200,
+    "gl_furniture": 600,
+    "gl_tools": 400,
+    "gl_grocery": 180,
+    "gl_beverages": 600,
+    "gl_automotive": 400,
+    "gl_sports": 350,
+    "gl_outdoors": 350,
+    "gl_toys": 250,
+    "gl_pet_supplies": 200,
+    "gl_jewelry": 90,
+    "gl_watches": 140,
+    "gl_music": 180,
+    "gl_video_games": 180,
+    "gl_dvd": 180,
+    "gl_handmade": 180,
+    "gl_office_products": 200,
+    "gl_software": 180,
+    "gl_instruments": 350,
+    "gl_garden": 400,
+    "gl_luggage": 500,
+    "gl_shoes": 250,
+    "gl_personal_care_appliances": 200,
+    "gl_large_appliances": 1400,
+    "gl_small_appliances": 350,
+    "gl_industrial": 400,
+    "gl_stationery": 180,
+    "gl_smartphones": 350,
+    "gl_tablets": 350,
+    "gl_headphones": 180,
+    "gl_video_dvd": 180,
+    "gl_pc_components": 350,
+    "gl_camera": 350,
+    "gl_software_download": 180
 }
 
-# Volume per 10€ of price for rough estimation if no data available
+# Volume per 10€ of price for rough estimation if no data available (increased values)
 DIMENSION_ESTIMATES_BY_CAT_GL = {
-    "gl_electronics": 0.00018,
-    "gl_computers": 0.00018,
-    "gl_books": 0.00006,
-    "gl_clothing": 0.00009,
-    "gl_home_kitchen": 0.00012,
-    "gl_health_beauty": 0.00006,
-    "gl_baby_products": 0.00009,
-    "gl_furniture": 0.0003,
-    "gl_tools": 0.00015,
-    "gl_grocery": 0.00009,
-    "gl_beverages": 0.00018,
-    "gl_automotive": 0.00015
+    "gl_electronics": 0.00035,
+    "gl_computers": 0.00035,
+    "gl_books": 0.00012,
+    "gl_clothing": 0.00018,
+    "gl_home_kitchen": 0.00022,
+    "gl_health_beauty": 0.00012,
+    "gl_baby_products": 0.00018,
+    "gl_furniture": 0.0006,
+    "gl_tools": 0.00028,
+    "gl_grocery": 0.00018,
+    "gl_beverages": 0.00035,
+    "gl_automotive": 0.00028,
+    "gl_sports": 0.00035,
+    "gl_outdoors": 0.00035,
+    "gl_toys": 0.00022,
+    "gl_pet_supplies": 0.00018,
+    "gl_jewelry": 0.00006,
+    "gl_watches": 0.00008,
+    "gl_music": 0.00012,
+    "gl_video_games": 0.00012,
+    "gl_dvd": 0.00012,
+    "gl_handmade": 0.00012,
+    "gl_office_products": 0.00018,
+    "gl_software": 0.00012,
+    "gl_instruments": 0.00035,
+    "gl_garden": 0.00028,
+    "gl_luggage": 0.00035,
+    "gl_shoes": 0.00018,
+    "gl_personal_care_appliances": 0.00018,
+    "gl_large_appliances": 0.001,
+    "gl_small_appliances": 0.00035,
+    "gl_industrial": 0.00028,
+    "gl_stationery": 0.00012,
+    "gl_smartphones": 0.00035,
+    "gl_tablets": 0.00035,
+    "gl_headphones": 0.00012,
+    "gl_video_dvd": 0.00012,
+    "gl_pc_components": 0.00035,
+    "gl_camera": 0.00035,
+    "gl_software_download": 0.00012
 }
 
 # -------------------------
@@ -164,9 +264,10 @@ def get_shipping_fees(item, idealo_price, p):
     storage = calc_storage_fee(volume_m3)
     fulfillment = calc_fulfillment_fee(weight_g)
     seller_fee = 0.99  # Individual Plan
-    cogs = idealo_price  / 0.19  # Wareneinsatz (netto)
+    cogs = idealo_price  # Einkaufspreis (netto)
 
     cost_before_tax = referral + storage + fulfillment + seller_fee + cogs
     tax = (p-cost_before_tax) * 0.19
+    #print(f"Cost structure:\n Referral: {referral}\n Storage: {storage}\n Fulfillment: {fulfillment}\n Seller Fee: {seller_fee}\n COGS: {cogs}\n")
     total_costs = cost_before_tax + tax
     return total_costs

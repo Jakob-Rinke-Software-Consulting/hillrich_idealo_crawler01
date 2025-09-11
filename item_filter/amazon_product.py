@@ -73,9 +73,10 @@ class AmazonProduct:
             self.soup = amazon_funcs.get_amazon_json(self.ean)
         if self.keepa_data != -1:
             rank_table = self.keepa_data["salesRanks"]
-            return max([
-                cat[-1] for cat in rank_table.values() 
-            ])
+            if rank_table:
+                return max([
+                    cat[-1] for cat in rank_table.values() 
+                ])
         else:
             print("Warning: No Keepa data available for BSR retrieval.")
         return amazon_funcs.get_bsr(self.soup)
@@ -99,6 +100,7 @@ class AmazonProduct:
             if key[0] == idealo_price and key[1] == p and not force:
                 return self.cost_cache[key]
         self.fba_costs = amazon_fba_calculator.get_shipping_fees(self, idealo_price, p)
+        print(f"FBA Costs for item {self.ean} at price {p}/{idealo_price/1.19}: {self.fba_costs}")
         self.cost_cache[(idealo_price, p)] = self.fba_costs
         return self.fba_costs
     

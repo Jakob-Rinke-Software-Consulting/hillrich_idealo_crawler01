@@ -47,13 +47,14 @@ def check_profitablity_90(item: IdealoShopItem):
     marge = get_marge_90(item)
     return marge / item.get_amazon_item().get_avgr90() >= MIN_AMAZON_WIN_RATIO
 
+MIN_AMAZON_WIN_RATIO_HISTORICAL = 0.08
 def check_profitablity_30(item: IdealoShopItem):
     marge = get_marge_30(item)
-    return marge / item.get_amazon_item().get_avgr30() >= MIN_AMAZON_WIN_RATIO
+    return marge / item.get_amazon_item().get_avgr30() >= MIN_AMAZON_WIN_RATIO_HISTORICAL
 
 def check_profitablity(item: IdealoShopItem):
     marge = get_marge(item)
-    return marge / item.amazon_offer.price >= MIN_AMAZON_WIN_RATIO
+    return marge / item.amazon_offer.price >= MIN_AMAZON_WIN_RATIO_HISTORICAL
 
 def get_marge_90(item: IdealoShopItem):
     amz = item.get_amazon_item()
@@ -87,7 +88,7 @@ def get_marge(item: IdealoShopItem):
     return item.amazon_offer.price - costs
 
 MIN_RATING_IF_NO_BSR = 10
-MIN_BSR = 100_000
+MIN_BSR = 50_000
 def check_selling_amount(item: IdealoShopItem):
     amazon_product = item.get_amazon_item()
     if amazon_product.get_bsr() == -1:

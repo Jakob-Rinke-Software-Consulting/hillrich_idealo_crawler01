@@ -49,6 +49,7 @@ with open("settings/filters.txt", "r") as f:
 def get_filter_val(item: IdealoShopItem, filter_funcs:list=FILTER_FUNCS):
     for f in filter_funcs:
         if not f(item):
+            #print(f"Filter failed: {f.__name__}")
             return False
     return True
 
