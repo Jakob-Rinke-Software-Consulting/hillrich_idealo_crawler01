@@ -25,7 +25,7 @@ def get_chunk_from_url(self, url):
         res = proxquest.get(
             url,
             max_of_retries=2, 
-            timeout=5,
+            timeout=8,
             sleep_between_retries=1,
             goto_main_first_to_get_session_cookies=True,
             enable_agent=True,
