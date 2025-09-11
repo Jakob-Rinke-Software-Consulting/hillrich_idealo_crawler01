@@ -32,8 +32,7 @@ def get_chunk_from_url(self, url):
         )
         # if the end url has been redirected to the page without -page_index we assume we reached the end
         if not "-" in res.url and self.page_index > 0:
-            self.end()
-            return
+            raise StopIteration("No more items on page: " + str(self.page_index))
         src = res.text
         soup = BeautifulSoup(src, "html.parser")
         items = soup.select(".sr-resultList__item_m6xdA")
