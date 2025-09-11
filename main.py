@@ -57,7 +57,7 @@ start_time = time.time()
 def onItem(item:IdealoShopItem, channel="all"):
     global item_amount, item_cache
     item_amount += 1
-    if item_amount % 1000 == 0:
+    if item_amount % 100 == 0:
         print(f"Item {item_amount}: Frequency: {item_amount / (time.time() - start_time):.3f} items/second")
 
     if item_filter.get_filter_val(item) and item.name not in item_cache:
