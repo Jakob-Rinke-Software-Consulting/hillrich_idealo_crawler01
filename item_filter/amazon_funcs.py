@@ -84,7 +84,7 @@ def get_cat(soup):
     try:
         return soup['gl']
     except:
-        return "gl_electronics"
+        return "gl_office_products"
 
 
 if __name__ == '__main__':

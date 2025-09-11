@@ -94,10 +94,10 @@ REFERRAL_RULES = {
     "gl_headphones": {"rate": 0.07, "min_fee": 0.30},
     "gl_video_dvd": {"rate": 0.15, "min_fee": 0.30},
     "gl_pc_components": {"rate": 0.07, "min_fee": 0.30},
-    "gl_camera": {"rate": 0.07, "min_fee": 0.30},
+    "gl_camera": {"rate": 0.08, "min_fee": 0.30},
     "gl_software_download": {"rate": 0.15, "min_fee": 0.30},
     # Fallback
-    "default": {"rate": 0.07, "min_fee": 0.30}
+    "default": {"rate": 0.15, "min_fee": 0.30}
 }
 
 # -------------------------

@@ -75,6 +75,7 @@ class IdealoShopItem:
         try:
             response = proxquest.get(self.idealo_listing, max_of_retries=3, timeout=8)
         except requests.exceptions.RequestException as e:
+            print(f"Error fetching Idealo listing page for item {self.name}: {e}")
             return
         soup = BeautifulSoup(response.text, 'html.parser')
         offer_items = soup.select(".productOffers-listItem")
