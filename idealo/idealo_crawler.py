@@ -1,35 +1,34 @@
-# selenium 4.0
-import os
-import random
 from idealo.idealo_item import IdealoItemHead
 from idealo.return_thread import ReturnThread
 import time
-from selenium.webdriver.chrome.options import Options
 import json
 import traceback
 from idealo.pool import SyncedIdealoPool
 from bs4 import BeautifulSoup
-import psutil
 import proxquest
 
 
 IDEALO_SEARCH_URL = "https://www.idealo.de/preisvergleich/ProductCategory/{0}I16-{1}.html"
+IDEALO_SEARCH_URL = "https://www.idealo.de/preisvergleich/MainSearchProductCategory/100I16-{1}.html?q={0}"
 JUMPY_BY = 15
-
+MAX_CAT_PAGE = 20
 
 def get_chunk_from_url(self, url):
     try:
         if self.page_index > self.max_page:
             self.end()
             return
-        res = proxquest.get(
-            url,
-            max_of_retries=2, 
-            timeout=8,
-            sleep_between_retries=1,
-            goto_main_first_to_get_session_cookies=True,
-            enable_agent=True,
-        )
+        try:
+            res = proxquest.get(
+                url,
+                max_of_retries=2, 
+                timeout=5,
+                sleep_between_retries=1,
+                goto_main_first_to_get_session_cookies=True,
+                enable_agent=True,
+            )
+        except Exception as e:
+            return
         # if the end url has been redirected to the page without -page_index we assume we reached the end
         if not "-" in res.url and self.page_index > 0:
             raise StopIteration("No more items on page: " + str(self.page_index))
@@ -64,10 +63,10 @@ def get_chunk_from_url(self, url):
         print(f"{self.categoryID} - Error while fetching data: {e} - {url}")
         self.end()
 
-MAX_CAT_PAGE = 10
+
 class IdealoCategoryCrawler ():
 
-    def __init__(self, categoryID=-1, max_page=5):
+    def __init__(self, categoryID=-1, max_page=10):
         if categoryID != -1:
             self.categoryID = categoryID
         self.page_index = 0

@@ -40,7 +40,12 @@ def get(url, max_of_retries=3, timeout=2, sleep_between_retries=0.3, retry_on_st
             if goto_main_first_to_get_session_cookies and not session.cookies:
                 # if we need to get session cookies, we go to the main page first
                 main_url = "/".join(url.split("/")[:3])
-                session.get(main_url, timeout=timeout)
+                for i in range(3):
+                    try:
+                        session.get(main_url, timeout=3)
+                        break
+                    except Exception:
+                        time.sleep(1)
             response = session.get(url, *args, **kwargs, timeout=timeout)
             if retry_on_status:
                 response.raise_for_status()  # Raise an error for bad status codes
