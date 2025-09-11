@@ -15,6 +15,7 @@ MAX_CAT_PAGE = 20
 FAILED_REQUESTS = 0
 
 def get_chunk_from_url(self, url):
+    global FAILED_REQUESTS, JUMPY_BY
     try:
         if self.page_index > self.max_page:
             self.end()
