@@ -3,6 +3,7 @@ from item_filter.amazon_product import AmazonProduct
 
 def check_amazon(item: IdealoShopItem):
     if len(item.offers) == 0:
+        print("No offers found for item:", item.name)
         return False
     return item.amazon_offer is not None
 

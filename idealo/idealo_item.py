@@ -73,13 +73,9 @@ class IdealoShopItem:
         
 
         try:
-            response = proxquest.get(self.idealo_listing, max_of_retries=2, timeout=4)
+            response = proxquest.get(self.idealo_listing, max_of_retries=3, timeout=8)
         except requests.exceptions.RequestException as e:
             return
-        if response.status_code != 200:
-            return
-
-
         soup = BeautifulSoup(response.text, 'html.parser')
         offer_items = soup.select(".productOffers-listItem")
         for item in offer_items:
