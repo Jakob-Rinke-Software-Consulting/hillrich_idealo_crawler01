@@ -11,7 +11,12 @@ except FileNotFoundError:
 API_BASE = "https://api.keepa.com"
 API_PRODUCT = API_BASE + "/product"
 
-
+FAILED_KEEPA_REQUESTS = 0
+def add_save_failed():
+    global FAILED_KEEPA_REQUESTS
+    FAILED_KEEPA_REQUESTS += 1
+    if FAILED_KEEPA_REQUESTS % 20 == 0:
+        print("Failed Keepa requests: ", FAILED_KEEPA_REQUESTS)
 def get_product_data(asin: str, domain: int = 3):
     if KEEP_A_KEY == "":
         return -1
@@ -21,8 +26,10 @@ def get_product_data(asin: str, domain: int = 3):
         if products:
             return products[0]
         else:
+            add_save_failed()
             return -1
     else:
+        add_save_failed()
         return -1
     
 

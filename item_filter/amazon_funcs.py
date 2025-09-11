@@ -41,6 +41,20 @@ def get_weights_kg(soup):
         pass
     return -1
 
+def get_dimensions_m3(soup):
+    try:
+        unit = soup['dimensionUnit']
+        length = soup['length']
+        width = soup['width']
+        height = soup['height']
+        if unit == 'centimeters':
+            return (length / 100) * (width / 100) * (height / 100)
+        elif unit == "meters":
+            return length * width * height
+    except:
+        pass
+    return -1
+
 def get_kat_name(soup):
     try:
         return soup['salesRankContextName']
@@ -51,7 +65,7 @@ def get_kat_name(soup):
 def get_amazon_json(id):
     url = DIRCET_URL.format(id)
     try:
-        content = proxquest.get(url, timeout=3, max_of_retries=0)
+        content = proxquest.get(url, timeout=3, max_of_retries=3)
         content = content.text
     except Exception as e:
         return "{}"

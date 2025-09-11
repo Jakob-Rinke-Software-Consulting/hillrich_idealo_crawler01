@@ -11,7 +11,7 @@ import proxquest
 IDEALO_SEARCH_URL = "https://www.idealo.de/preisvergleich/ProductCategory/{0}I16-{1}.html"
 IDEALO_SEARCH_URL = "https://www.idealo.de/preisvergleich/MainSearchProductCategory/100I16-{1}.html?q={0}"
 JUMPY_BY = 15
-MAX_CAT_PAGE = 20
+MAX_CAT_PAGE = 50
 FAILED_REQUESTS = 0
 
 def get_chunk_from_url(self, url):
@@ -31,7 +31,7 @@ def get_chunk_from_url(self, url):
             )
         except Exception as e:
             FAILED_REQUESTS += 1
-            if FAILED_REQUESTS  % 100 == 0:
+            if FAILED_REQUESTS  % 20 == 0:
                 print("Failed requests: ", FAILED_REQUESTS)
             return
         # if the end url has been redirected to the page without -page_index we assume we reached the end
@@ -154,7 +154,7 @@ def sync_search_main_category(onItem):
     while True:
         try:
             item = crawler.get_next().get_real_item()
-            onItem(item)
+            onItem(item, "main")
             itemsCount += 1
         except StopIteration:
             if crawler.page_index < 60:

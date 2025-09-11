@@ -72,18 +72,18 @@ def onItem(item:IdealoShopItem, channel="all"):
             # Codeblock starten für Übersicht
             item_str = "```\n"
             item_str += f"{item.name}\n"
-            item_str += f"{'Marktplatz':<10} | {'Preis/Wert':>10} | {'30d Avg':>10} | {'90d Avg':>10}\n"
-            item_str += f"{'-'*46}\n"
+            item_str += f"{'Marktplatz':<10} | {'Preis/Wert':>12} | {'30d Avg':>12} | {'90d Avg':>12}\n"
+            item_str += f"{'-'*56}\n"
 
             # Idealo-Zeile (30/90 Tage Durchschnitt nur für Amazon)
-            item_str += f"{'Idealo':<10} | {item.best_offer.price:>10.2f}€ | {'-':>10} | {'-':>10}\n"
+            item_str += f"{'Idealo':<10} | {item.best_offer.price:>10.2f} € | {'-':>12} | {'-':>12}\n"
 
             # Amazon-Zeile
             avg30 = item.get_amazon_item().get_avgr30()
             avg90 = item.get_amazon_item().get_avgr90()
-            item_str += f"{'Amazon':<10} | {item.amazon_offer.price:>10.2f}€ | {avg30:>10.2f}€ | {avg90:>10.2f}€\n"
+            item_str += f"{'Amazon':<10} | {item.amazon_offer.price:>10.2f} € | {avg30:>10.2f} € | {avg90:>10.2f} €\n"
 
-            item_str += f"{'BSR/Drops':<10} | {amz_it.get_bsr():>10.2f} | {amz_it.get_drop_bsr30():>10.2f} | {amz_it.get_drop_bsr90():>10.2f}\n"
+            item_str += f"{'BSR/Drops':<10} | {amz_it.get_bsr():>12} | {amz_it.get_drop_bsr30():>12} | {amz_it.get_drop_bsr90():>12}\n"
 
             # Leerzeile nach Tabelle
             item_str += "\n"
@@ -91,8 +91,7 @@ def onItem(item:IdealoShopItem, channel="all"):
             # Weitere Daten darunter, formatiert
             marge = item_filter.get_marge(item)
             marge_percent = marge / item.amazon_offer.price * 100
-            item_str += f"{'Marge:':<25} {marge:.2f}€ ({marge_percent:.2f}%)\n"
-            item_str += f"{'Aktueller BSR:':<25} {item.get_amazon_item().get_bsr():.2f}\n"
+            item_str += f"{'Marge:':<10} {marge:.2f}€ ({marge_percent:.2f}%)\n"
 
             item_str += "```"  # Codeblock schließen
 

@@ -4,7 +4,6 @@ try:
 except:
     from amz_headers import get_header
 import time
-from selenium.webdriver.common.by import By
 import time
 import json
 import proxquest
@@ -15,16 +14,6 @@ AMAZON_FEE_URL = "https://sellercentral.amazon.de/rcpublic/getfees?countryCode=D
 AMAZON_PRICE_URL = "https://sellercentral.amazon.de/rcpublic/getadditionalpronductinfo?countryCode=DE&asin={}&fnsku=&searchType=GENERAL&locale=de-DE"
 
 def post(url, data):
-        # return driver.execute_script(f"""
-        #     return fetch("{url}", {{
-        #         method: "POST",
-        #         body: '{json.dumps(data)}',
-        #         headers: {{
-        #             "Content-Type": "application/json;charset=UTF-8",
-        #         }}
-        #     }})
-        #     .then(response => response.text());
-        # """)
     headers = get_header()
     try:
         response = proxquest.post(url, headers=headers, json=data, enable_proxy=False, retry_on_status=True, timeout=5, max_of_retries=1)
@@ -61,13 +50,17 @@ def get_post_data(item, p):
 
 
 def get_amazon_fees_json(item, p):
-
     return post(AMAZON_FEE_URL, get_post_data( item, p))
 
+FAILED_FBA_REQUESTS = 0
 def get_shipping_fees(item, idealo_price, p):
+    global FAILED_FBA_REQUESTS
     try:
         fees = json.loads(get_amazon_fees_json( item, p), strict=False)
     except Exception as e:
+        FAILED_FBA_REQUESTS += 1
+        if FAILED_FBA_REQUESTS % 20 == 0:
+            print("Failed FBA requests: ", FAILED_FBA_REQUESTS)
         return 1000000
     brutto_price = idealo_price / 1.19
     amazonPrgrm = fees['data']['programFeeResultMap']["Core"]
