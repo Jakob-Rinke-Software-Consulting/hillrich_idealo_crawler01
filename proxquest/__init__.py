@@ -8,7 +8,7 @@ import requests
 import time
 import random
 
-SESSION_NUM = 100
+SESSION_NUM = 300
 SESSIONS = []
 SESSION_RESET_CHANCE = 1 / 10000
 for i in range(SESSION_NUM):
@@ -24,8 +24,6 @@ def get(url, max_of_retries=3, timeout=2, sleep_between_retries=0.3, retry_on_st
     """
     Makes a GET request to the specified URL using a random user agent and a proxy.
     """
-
-
     retries = 0
     while True:
         session: requests.Session = get_random_session()
