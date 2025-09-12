@@ -35,7 +35,7 @@ class IdealoItemHead:
         variants = []
         i = 0
         while True:
-            page_src = proxquest.get(ITEM_VARIANT_URL.format(self.id, i), max_of_retries=0).text
+            page_src = proxquest.get(ITEM_VARIANT_URL.format(self.id, i), max_of_retries=0, sleep_between_retries=2).text
             soup = BeautifulSoup(page_src, 'html.parser')
             variant_list = soup.find_all("li", class_="productVariants-listItem")
             if not variant_list:
@@ -62,18 +62,21 @@ class IdealoItemHead:
 
 class IdealoShopItem:
 
+
+ 
     def __init__(self, id:str, name:str):
         self.amazon_product:AmazonProduct = None
         self.offers = []
         self.id = id
         self.name = name
         self.idealo_listing = "https://www.idealo.de/preisvergleich/OffersOfProduct/" + id + ".html"
+        self.offer_url = f"https://www.idealo.de/offerpage/offerlist/product/{id}/start/0/sort/default"
         self.amazon_offer:IdealoItemOffer = None
         self.best_offer:IdealoItemOffer = None
         
 
         try:
-            response = proxquest.get(self.idealo_listing, max_of_retries=3, timeout=8)
+            response = proxquest.get(self.offer_url, max_of_retries=5, timeout=3, sleep_between_retries=2)
         except requests.exceptions.RequestException as e:
             print(f"Error fetching Idealo listing page for item {self.name}: {e}")
             return

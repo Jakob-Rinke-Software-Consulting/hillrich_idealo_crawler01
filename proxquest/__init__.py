@@ -10,7 +10,7 @@ import random
 
 SESSION_NUM = 300
 SESSIONS = []
-SESSION_RESET_CHANCE = 1 / 10000
+SESSION_RESET_CHANCE = 1 / 100
 for i in range(SESSION_NUM):
     SESSIONS.append(requests.Session())
 def get_random_session():
