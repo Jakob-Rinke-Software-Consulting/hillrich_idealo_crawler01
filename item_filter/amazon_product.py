@@ -1,5 +1,5 @@
 import item_filter.amazon_funcs as amazon_funcs
-import item_filter.amazon_local_fba_calculator as amazon_fba_calculator
+import item_filter.amazon_fba_calculator as amazon_fba_calculator
 #import keepa.keepa_price_chart_analyzer as keepa_price_chart_analyzer
 import keepa.keepa_avg_getter as keepa_avg_getter
 from selenium.webdriver.common.by import By
