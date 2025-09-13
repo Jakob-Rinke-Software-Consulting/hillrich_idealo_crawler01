@@ -13,6 +13,7 @@ default_filter_funcs = [
     #check_weight,
     #check_buybox,
     check_profitablity,
+    check_roi,
     check_profitablity_30,
     check_selling_amount,
     check_profitablity_90,

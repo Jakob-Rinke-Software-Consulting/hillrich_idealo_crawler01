@@ -9,6 +9,7 @@ get_min_rating_val=1
 check_weight=1
 check_buybox=1
 check_profitablity=1
+check_roi=1
 check_profitablity_30=1
 check_selling_amount=1
 check_profitablity_90=1

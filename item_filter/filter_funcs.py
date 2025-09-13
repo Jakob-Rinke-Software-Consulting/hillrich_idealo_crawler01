@@ -90,6 +90,11 @@ def get_marge(item: IdealoShopItem):
     costs = amz.get_cost(item.best_offer.price, item.amazon_offer.price)
     return item.amazon_offer.price - costs
 
+MIN_ROI = 0.1
+def check_roi(item: IdealoShopItem):
+    marge = get_marge(item)
+    return marge / item.best_offer.price >= MIN_ROI
+
 MIN_RATING_IF_NO_BSR = 10
 MIN_BSR = 50_000
 def check_selling_amount(item: IdealoShopItem):

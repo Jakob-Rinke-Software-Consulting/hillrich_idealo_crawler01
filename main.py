@@ -90,9 +90,10 @@ def onItem(item:IdealoShopItem, channel="all"):
 
             # Weitere Daten darunter, formatiert
             marge = item_filter.get_marge(item)
+            roi = marge / item.best_offer.price
             marge_percent = marge / item.amazon_offer.price * 100
             item_str += f"{'Marge:':<10} {marge:.2f}€ ({marge_percent:.2f}%)\n"
-
+            item_str += f"{'ROI:':<10} {roi * 100:.2f}%\n"
             item_str += "```"  # Codeblock schließen
 
             # Links als Markdown (klickbar, keine Einbettung)
