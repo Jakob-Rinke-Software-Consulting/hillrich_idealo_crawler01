@@ -128,6 +128,19 @@ MIN_SOLD = 50
 def filter_sold_last_month(item: IdealoShopItem):
     return item.get_amazon_item().sold_last_month >= MIN_SOLD
 
+MIN_BSR_DROPS30 = 10
+def check_bsr_drops30(item: IdealoShopItem):
+    amz = item.get_amazon_item()
+    if amz is None:
+        return False
+    return amz.get_drop_bsr30() >= MIN_BSR_DROPS30
+
+MIN_BSR_DROPS90 = 20
+def check_bsr_drops90(item: IdealoShopItem):
+    amz = item.get_amazon_item()
+    if amz is None:
+        return False
+    return amz.get_drop_bsr90() >= MIN_BSR_DROPS90
 
 with open("settings/marken_blacklist.txt", "r") as f:
     BLACKLIST = f.read().split("\n")
@@ -145,8 +158,8 @@ with open("settings/word_blacklist.txt", "r") as f:
 with open("settings/filter_values.txt") as f:
     for l in f:
         args = l.split("=")
-        arg = args[0]
-        val = float(args[1])
+        arg = args[0].strip()
+        val = float(args[1].strip())
         # change the constant with the name arg to the value val
         globals()[arg] = val
         print(f"Set {arg} to {val}")

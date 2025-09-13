@@ -15,7 +15,9 @@ default_filter_funcs = [
     check_profitablity,
     check_profitablity_30,
     check_selling_amount,
-    check_profitablity_90
+    check_profitablity_90,
+    check_bsr_drops30,
+    check_bsr_drops90,
 ]
 
 

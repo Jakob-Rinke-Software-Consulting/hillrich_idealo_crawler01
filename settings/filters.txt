@@ -12,3 +12,5 @@ check_profitablity=1
 check_profitablity_30=1
 check_selling_amount=1
 check_profitablity_90=1
+check_bsr_drops30=1
+check_bsr_drops90=1
