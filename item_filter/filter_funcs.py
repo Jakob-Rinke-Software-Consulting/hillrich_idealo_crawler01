@@ -15,9 +15,9 @@ def check_best(item: IdealoShopItem):
             return False
     return True
 
-MIN_AMAZON_RATIO = 1.15
+MIN_AMAZON_TO_BEST_RATIO = 1.15
 def check_price_ratio(item: IdealoShopItem):
-    return item.amazon_offer.price / item.best_offer.price >= MIN_AMAZON_RATIO
+    return item.amazon_offer.price / item.best_offer.price >= MIN_AMAZON_TO_BEST_RATIO
 
 MIN_PRICE = 10
 def check_min_price(item: IdealoShopItem):
@@ -45,19 +45,19 @@ def check_shop_blacklist(item: IdealoShopItem):
             return False
     return True
 
-MIN_AMAZON_WIN_RATIO = 0.1
+MIN_MARGE = 0.1
 def check_profitablity_90(item: IdealoShopItem):
     marge = get_marge_90(item)
-    return marge / item.get_amazon_item().get_avgr90() >= MIN_AMAZON_WIN_RATIO
+    return marge / item.get_amazon_item().get_avgr90() >= MIN_MARGE
 
-MIN_AMAZON_WIN_RATIO_HISTORICAL = 0.08
+MIN_MARGE_HISTORICAL = 0.08
 def check_profitablity_30(item: IdealoShopItem):
     marge = get_marge_30(item)
-    return marge / item.get_amazon_item().get_avgr30() >= MIN_AMAZON_WIN_RATIO_HISTORICAL
+    return marge / item.get_amazon_item().get_avgr30() >= MIN_MARGE_HISTORICAL
 
 def check_profitablity(item: IdealoShopItem):
     marge = get_marge(item)
-    return marge / item.amazon_offer.price >= MIN_AMAZON_WIN_RATIO_HISTORICAL
+    return marge / item.amazon_offer.price >= MIN_MARGE_HISTORICAL
 
 def get_marge_90(item: IdealoShopItem):
     amz = item.get_amazon_item()
@@ -140,3 +140,15 @@ with open("settings/shop_blacklist.txt", "r") as f:
 with open("settings/word_blacklist.txt", "r") as f:
     WORD_BLACKLIST = f.read().split("\n")
     WORD_BLACKLIST = [x.lower().strip() for x in WORD_BLACKLIST]
+
+
+with open("settings/filter_values.txt") as f:
+    for l in f:
+        args = l.split("=")
+        arg = args[0]
+        val = float(args[1])
+        # change the constant with the name arg to the value val
+        globals()[arg] = val
+        print(f"Set {arg} to {val}")
+
+print("MIN_AMAZON_RATIO:", MIN_AMAZON_TO_BEST_RATIO)
