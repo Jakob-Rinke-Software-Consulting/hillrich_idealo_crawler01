@@ -33,7 +33,7 @@ def get_shipping_fees(item, idealo_price, price):
     tax = (price - cost_before_tax) * 0.19
     total_costs = cost_before_tax + tax
 
-    return {
+    costs = {
         "referral": referral,
         "storage": storage,
         "fulfillment": fulfillment,
@@ -42,3 +42,4 @@ def get_shipping_fees(item, idealo_price, price):
         "tax": tax,
         "total_costs": total_costs
     }
+    return sum(costs.values())
