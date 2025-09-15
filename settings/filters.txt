@@ -6,7 +6,6 @@ check_max_price=1
 check_blacklist=1
 check_word_blacklist=1
 get_min_rating_val=1
-check_weight=1
 check_buybox=1
 check_profitablity=1
 check_roi=1

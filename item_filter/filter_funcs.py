@@ -90,6 +90,13 @@ def get_marge(item: IdealoShopItem):
     costs = amz.get_cost(item.best_offer.price, item.amazon_offer.price)
     return item.amazon_offer.price - costs
 
+def get_marge_exact(item: IdealoShopItem):
+    amz = item.get_amazon_item()
+    if amz is None:
+        return -1
+    costs, exact = amz.get_cost_exact(item.best_offer.price, item.amazon_offer.price)
+    return item.amazon_offer.price - costs, exact
+
 MIN_ROI = 0.1
 def check_roi(item: IdealoShopItem):
     marge = get_marge(item)
@@ -109,7 +116,7 @@ def get_min_rating_val(item: IdealoShopItem):
     if amazon_product is None:
         print("No Amazon product found for item:", item.name)
         return False
-    return amazon_product.get_rating() >= MIN_RATING
+    return amazon_product.get_rating() >= MIN_RATING or amazon_product.get_rating() == -1
 
 MAX_DOW_DIFF = 1.3
 def check_dow_diff(item: IdealoShopItem):

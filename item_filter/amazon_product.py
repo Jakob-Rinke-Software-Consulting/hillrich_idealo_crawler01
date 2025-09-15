@@ -1,5 +1,6 @@
 import item_filter.amazon_funcs as amazon_funcs
-import item_filter.amazon_local_fba_calculator as amazon_fba_calculator
+import item_filter.amazon_local_fba_calculator as round_amazon_fba_calculator
+import item_filter.amazon_fba_calculator as amazon_fba_calculator
 #import keepa.keepa_price_chart_analyzer as keepa_price_chart_analyzer
 import keepa.keepa_avg_getter as keepa_avg_getter
 from selenium.webdriver.common.by import By
@@ -64,6 +65,7 @@ class AmazonProduct:
         self.weight = -1
         self.kat_name = -1
         self.cost_cache = {}
+        self.exact_cost_cache = {}
         self.keepa_data = -1
 
 
@@ -99,11 +101,21 @@ class AmazonProduct:
         for key in self.cost_cache:
             if key[0] == idealo_price and key[1] == p and not force:
                 return self.cost_cache[key]
-        self.fba_costs = amazon_fba_calculator.get_shipping_fees(self, idealo_price, p)
-        print(f"FBA Costs for item {self.ean} at price {p}/{idealo_price/1.19}: {self.fba_costs}")
+        self.fba_costs = round_amazon_fba_calculator.get_shipping_fees(self, idealo_price, p)
         self.cost_cache[(idealo_price, p)] = self.fba_costs
         return self.fba_costs
     
+    def get_cost_exact(self, idealo_price, p, force=False):
+        for key in self.exact_cost_cache:
+            if key[0] == idealo_price and key[1] == p and not force:
+                return self.exact_cost_cache[key], True
+        c = amazon_fba_calculator.get_shipping_fees(self, idealo_price, p)
+        if c >= 100000:
+            return self.get_cost(idealo_price, p, force), False
+        self.fba_costs = c
+        self.exact_cost_cache[(idealo_price, p)] = self.fba_costs
+        return self.fba_costs , True
+
     def get_cat_gl(self):
         if self.soup == -1:
             self.soup = amazon_funcs.get_amazon_json(self.ean)

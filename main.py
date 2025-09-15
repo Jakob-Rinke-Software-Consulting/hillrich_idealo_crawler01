@@ -89,11 +89,13 @@ def onItem(item:IdealoShopItem, channel="all"):
             item_str += "\n"
 
             # Weitere Daten darunter, formatiert
-            marge = item_filter.get_marge(item)
-            roi = marge / item.best_offer.price
-            marge_percent = marge / item.amazon_offer.price * 100
-            item_str += f"{'Marge:':<10} {marge:.2f}€ ({marge_percent:.2f}%)\n"
-            item_str += f"{'ROI:':<10} {roi * 100:.2f}%\n"
+            marge_ex, is_exact = item_filter.get_marge_exact(item)
+            roi = marge_ex / item.best_offer.price
+            marge_percent = marge_ex / item.amazon_offer.price * 100
+            marge_label = "Marge (Geschätzt):" if not is_exact else "Marge:"
+            roi_label = "ROI (Geschätzt):" if not is_exact else "ROI:"
+            item_str += f"{marge_label:<20} {marge_ex:.2f}€ ({marge_percent:.2f}%)\n"
+            item_str += f"{roi_label:<20} {roi * 100:.2f}%\n"
             item_str += "```"  # Codeblock schließen
 
             # Links als Markdown (klickbar, keine Einbettung)
