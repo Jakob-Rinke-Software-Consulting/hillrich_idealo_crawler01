@@ -64,18 +64,20 @@ def post(url, data=None, json=None, max_of_retries=3, timeout=2, sleep_between_r
     Makes a POST request to the specified URL using a random user agent and a proxy.
     """
     retries = 0
-    if "headers" not in kwargs:
-        kwargs["headers"] = {}
     while True:
+        session: requests.Session = get_random_session()
+        if "headers" not in kwargs:
+            kwargs["headers"] = {}
         if enable_agent:
             for k, v in agents.get_header().items():
                 kwargs["headers"][k] = v
         if enable_proxy:
             kwargs["proxies"] = proxy_manager.get_proxy()
+        response = None
         try:
-            response = requests.post(url, data=data, json=json, *args, **kwargs, timeout=timeout)
+            response = session.post(url, data=data, json=json, *args, **kwargs, timeout=timeout)
             if retry_on_status:
-                response.raise_for_status()  # Raise an error for bad status codes
+                response.raise_for_status()
             return response
         except requests.RequestException as e:
             retries += 1
@@ -83,7 +85,6 @@ def post(url, data=None, json=None, max_of_retries=3, timeout=2, sleep_between_r
                 raise e
             else:
                 time.sleep(sleep_between_retries)
-    
 
 
 # test

@@ -16,7 +16,7 @@ AMAZON_PRICE_URL = "https://sellercentral.amazon.de/rcpublic/getadditionalprondu
 def post(url, data):
     headers = get_header()
     try:
-        response = proxquest.post(url, headers=headers, json=data, enable_proxy=False, retry_on_status=True, timeout=5, max_of_retries=8)
+        response = proxquest.post(url, headers=headers, json=data, enable_proxy=False, retry_on_status=True, timeout=5, max_of_retries=3, sleep_between_retries=7)
         response.raise_for_status()  # Raise an error for bad responses
     except Exception as e:
         return ""     
