@@ -42,4 +42,4 @@ def get_shipping_fees(item, idealo_price, price):
         "tax": tax,
         "total_costs": total_costs
     }
-    return sum(costs.values())
+    return costs["total_costs"]
