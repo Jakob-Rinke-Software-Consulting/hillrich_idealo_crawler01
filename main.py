@@ -128,6 +128,8 @@ if __name__ == "__main__":
     random.shuffle(category_ids)
     t = threading.Thread(target=idealo_crawler.loop_search_main_category, args=(onItem,), daemon=True)
     t.start()
-    items = idealo_crawler.multi_threaded_synced_search(category_ids, onItem, 5)
+    with open("settings/thread_num.txt", "r") as f:
+        thread_num = int(f.read().strip())
+    items = idealo_crawler.multi_threaded_synced_search(category_ids, onItem, thread_num)
     print("Fetched ", items, " items in ", time.time() - t, " seconds")
     exit(0)
